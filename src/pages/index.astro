@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Devyansh's Blog" description="A collection of thoughts on Linux, Open Source, and Cyber Security.">
+	<section>
+		<h1 style="margin-bottom: 2rem;">Latest Posts</h1>
+		<ul class="blog-list">
+			{
+				posts.map((post) => (
+					<li class="blog-card">
+						<a href={`/blog/${post.id}/`}>
+							{post.data.heroImage && (
+              <img src={post.data.heroImage} alt="" class="hero-image" style=" height: 100%; width: 100%; object-fit:contain;" />
+							)}
+							<div style="padding: 1rem 0;">
+								<span class="date">
+									{post.data.pubDate.toLocaleDateString('en-us', {
+										year: 'numeric',
+										month: 'short',
+										day: 'numeric',
+									})}
+								</span>
+								<h2 class="title" style="margin: 0.5rem 0;">{post.data.title}</h2>
+								<p style="color: var(--text-color); opacity: 0.8;">{post.data.description}</p>
+							</div>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout 
+	title={post.data.title} 
+	description={post.data.description} 
+	image={post.data.heroImage}
+	pubDate={post.data.pubDate}
+	updatedDate={post.data.updatedDate}
+>
+	<article>
+		{post.data.heroImage && <img src={post.data.heroImage} alt="" class="hero-image" />}
+		<div class="post-meta">
+			<time datetime={post.data.pubDate.toISOString()}>
+				{
+					post.data.pubDate.toLocaleDateString('en-us', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+					})
+				}
+			</time>
+			{
+				post.data.updatedDate && (
+					<div class="last-updated-on">
+						Last updated on <time datetime={post.data.updatedDate.toISOString()}>
+							{post.data.updatedDate.toLocaleDateString('en-us', {
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric',
+							})}
+						</time>
+					</div>
+				)
+			}
+		</div>
+		<h1>{post.data.title}</h1>
+		<hr style="margin: 2rem 0; opacity: 0.1;" />
+		<div class="content">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

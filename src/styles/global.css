@@ -94,7 +94,7 @@ nav {
 }
 
 .nav-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
@@ -126,7 +126,7 @@ nav {
 /* Main Content */
 main {
   flex: 1;
-  max-width: 800px;
+  max-width: 950px;
   width: 100%;
   margin: 2rem auto;
   padding: 0 1.5rem;
@@ -185,7 +185,7 @@ article .post-meta {
 }
 
 article .content {
-  font-size: 1.1rem;
+  font-size: auto;
 }
 
 article .content p {

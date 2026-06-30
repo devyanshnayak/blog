@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://blog.devyansh.site/sitemap-index.xml

@@ -49,9 +49,19 @@ const { Content } = await render(post);
 			}
 		</div>
 		<h1>{post.data.title}</h1>
-		<hr style="margin: 2rem 0; opacity: 0.1;" />
+		<hr style="margin: 1rem 0; opacity: 0.1;" />
 		<div class="content">
 			<Content />
 		</div>
 	</article>
 </BaseLayout>
+<style>
+  article :global(img) {
+    overflow: none;
+    width: 90%;
+    margin: 0 5%;
+  }
+  .content {
+    width:100%;
+  }
+</style>

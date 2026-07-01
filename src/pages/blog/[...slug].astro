@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
+import CommentSection from '../../components/CommentSection.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -13,6 +14,7 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+const apiBaseUrl = import.meta.env.PUBLIC_BLOG_API_URL ?? 'https://blog-api.devyansh.workers.dev';
 ---
 
 <BaseLayout 
@@ -53,6 +55,7 @@ const { Content } = await render(post);
 		<div class="content">
 			<Content />
 		</div>
+		<CommentSection postSlug={post.id} apiBaseUrl={apiBaseUrl} />
 	</article>
 </BaseLayout>
 <style>
